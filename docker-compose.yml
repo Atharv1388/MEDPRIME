@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  frontend:
+    build:
+      context: ./med-prime-web
+      dockerfile: Dockerfile.react
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend  
+
+  backend:
+    build:
+      context: ./Api
+      dockerfile: Dockerfile.server
+    ports:
+      - "3001:3000"
+      
