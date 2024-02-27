@@ -18,11 +18,11 @@ jobs:
 
       - name: Build and push Docker image
         env:
-          DOCKER_USERNAME: atharv1398
-          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
         run: |
-          echo $DOCKER_TOKEN | docker login -u $DOCKER_USERNAME --password-stdin
           docker buildx create --use
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker buildx build --platform linux/amd64,linux/arm64 -t ${{ github.repository }}:${{ github.sha }} -t ${{ github.repository }}:latest .
           docker push ${{ github.repository }}:${{ github.sha }}
           docker push ${{ github.repository }}:latest
