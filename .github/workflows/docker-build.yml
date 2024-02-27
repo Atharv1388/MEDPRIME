@@ -16,16 +16,16 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Check Docker version
-        run: docker --version
+      - name: Docker Login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+          server-url: https://index.docker.io/v1/
 
       - name: Build and push Docker image
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
         run: |
           docker buildx create --use
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ github.repository }}:${{ github.sha }} -t ${{ github.repository }}:latest .
-          docker push ${{ github.repository }}:${{ github.sha }}
-          docker push ${{ github.repository }}:latest
+          docker buildx build --platform linux/amd64,linux/arm64 -t Atharv1388/medprime:044fa2b217f214ff87b15ec57224f2ab93322fec -t Atharv1388/medprime:latest .
+          docker push Atharv1388/medprime:044fa2b217f214ff87b15ec57224f2ab93322fec
+          docker push Atharv1388/medprime:latest
