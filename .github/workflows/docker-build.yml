@@ -1,3 +1,4 @@
+# E:\MEDPRIME\.github/workflows/docker-build.yml
 name: Docker Build and Publish
 
 on:
@@ -18,8 +19,8 @@ jobs:
 
       - name: Build and push Docker image
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+          DOCKER_USERNAME: atharv1398  # Replace with your Docker Hub username
+          DOCKER_TOKEN: dckr_pat_yNzQiiiHk2UcRNgXM0UImzf1poU  # Replace with your Docker Hub personal access token
         run: |
           docker buildx create --use
           echo "$DOCKER_TOKEN" | docker login -u $DOCKER_USERNAME --password-stdin
